@@ -113,7 +113,6 @@ class Menu {
         if (index > -1 && index < this.teams.length) {
             this.teams[index].addPlayer(newPlayer); // add player to team
             alert(this.showPlayers(this.teams[index].teamRoster)); // show added player
-            return this.teams[index].teamRoster;
         }
         this.leaguePlayers.push(newPlayer); // add new player to league roster
         }
