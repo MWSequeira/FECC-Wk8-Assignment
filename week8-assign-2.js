@@ -55,7 +55,7 @@ class Menu {
             0) Exit
             1) View a team roster
             2) Add a New Player to a Team
-            3) Assign an Existing Player to a team
+            3) Assign an Existing Player to another team
             4) See all league players
             `);
     }
@@ -109,16 +109,18 @@ class Menu {
         }
 
     assignExistingPlayer () {
-        let index = prompt (`${showLeaguePlayers}
-            -----
-            Enter Player Index NUMBER: `)
-        if (index > -1 && index < this.leaguePlayers.length);
-            this.assignPlayer(leaguePlayers[index])
-
+        let array = this.listOfLeaguePlayers; // array of all players in the league
+       
+        let playerIndex = prompt (this.showLeaguePlayers + "\n" + "-----\n" + "Enter Player Index NUMBER: "); // ask user choose a specific player
+        
+        if (indexPlayer > -1 && indexPlayer < array.length) { // validate user's choice
+            let teamIndex = prompt(this.showTeams() + "\n" + "-------\n" + "Select team NUMBER for this player: "); // ask for team to add player to
+            this.teams[teamIndex].addPlayer(array[playerIndex]);
+        } 
     }
 
     showLeaguePlayers () {
-        return (this.showPlayers(this.listOfLeaguePlayers));
+        alert (`${this.showPlayers(this.listOfLeaguePlayers)}`);
     }
 
     // SUPPORTING METHODS
