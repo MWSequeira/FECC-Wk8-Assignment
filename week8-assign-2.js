@@ -118,7 +118,7 @@ class Menu {
     }
 
     showLeaguePlayers () {
-        alert (this.showLeaguePlayers(this.listOfLeaguePlayers));
+        return (this.showPlayers(this.listOfLeaguePlayers));
     }
 
     // SUPPORTING METHODS
@@ -131,6 +131,7 @@ class Menu {
             this.teams[index].addPlayer(player); // add player to team
             alert(this.showPlayers(this.teams[index].teamRoster)); // show added player
         }
+        return this.teams[index].teamRoster
     }
     
     showPlayers (playerArray) {
