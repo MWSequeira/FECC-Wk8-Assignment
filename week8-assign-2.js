@@ -43,9 +43,6 @@ class Menu {
     constructor(teamA, teamB, teamC, teamD) { // this men's league has four teams
         this.earlyGame = [teamA,teamB]; // two teams play the early game
         this.lateGame = [teamC, teamD]; // two teams play the late game
-        this.earlyGamePlayers = teamA.teamRoster.concat(teamB.teamRoster); // array of players and subs for early game
-        this.lateGamePlayers = teamC.teamRoster.concat(teamD.teamRoster); // array of players and subs for the late game
-        this.leaguePlayers = this.earlyGamePlayers.concat(this.lateGamePlayers); // array of all the players in the league
         this.teams = [teamA, teamB, teamC, teamD]; // all the teams in the league
         this.selectedTeam = null; // no team selectected when object created
     }
@@ -58,7 +55,7 @@ class Menu {
             0) Exit
             1) View a team roster
             2) Add a New Player to a Team
-            3) Not Avail: Assign an Existing Player to a team
+            3) Assign an Existing Player to a team
             4) See all league players
             `);
     }
@@ -75,7 +72,7 @@ class Menu {
                     this.addPlayer();
                     break;
                 case '3':
-                    this.assignPlayer();
+                    this.assignExistingPlayer();
                     break;
                 case '4':
                     this.showLeaguePlayers();
@@ -104,32 +101,37 @@ class Menu {
         let position = prompt("Player's Position: ");
         
         let newPlayer = new Player(name, phone, position); // create new player
+        alert (`Player ${newPlayer.name},
+            ${newPlayer.phone}, ${newPlayer.position}, has been created in the system.`)
         
-        let index = prompt(`${this.leaguePlayers.length}: Player ${newPlayer.name},
-            ${newPlayer.phone}, ${newPlayer.position}, has been created in the system.
-            ${this.showTeams()}
+        this.assignPlayer(newPlayer)
+       
+        }
+
+    assignExistingPlayer () {
+        let index = prompt (`${showLeaguePlayers}
+            -----
+            Enter Player Index NUMBER: `)
+        if (index > -1 && index < this.leaguePlayers.length);
+            this.assignPlayer(leaguePlayers[index])
+
+    }
+
+    showLeaguePlayers () {
+        alert (this.showLeaguePlayers(this.listOfLeaguePlayers));
+    }
+
+    // SUPPORTING METHODS
+
+    assignPlayer(player) {
+        let index = prompt(`${this.showTeams()}
             -------
             Select team for this player: `); // ask for team to add player to
         if (index > -1 && index < this.teams.length) {
-            this.teams[index].addPlayer(newPlayer); // add player to team
+            this.teams[index].addPlayer(player); // add player to team
             alert(this.showPlayers(this.teams[index].teamRoster)); // show added player
         }
-        this.leaguePlayers.push(newPlayer); // add new player to league roster
-        }
-/*
-    assignPlayer() {
-        let playerToAssign = prompt(this.showPlayers(this.leaguePlayers) + "\n" + "------------\n" + "Select NUMBER of Player to Assign: ");
-        if (playerToAssign > -1 && playerToAssign < this.leaguePlayers) {
-            this.selectedTeam = prompt(`${this.showTeams()}
-            -------
-            Select team for this player: `);
-        } else {
-            alert ("Error; You must choose a different player. Back to Main Menu.");
-        }
-        this.selectedTeam.teamRoster.addPlayer(playerToAssign);
-        alert(`${playerToAssign} has been added to ${this.selectedTeam}.`)
     }
-*/
     
     showPlayers (playerArray) {
         let rosterString = ""
@@ -148,8 +150,11 @@ class Menu {
         return teamString;
     }
 
-    showLeaguePlayers () {
-        alert(this.showPlayers(this.leaguePlayers));
+    listOfLeaguePlayers () {
+        let earlyGamePlayers = teamA.teamRoster.concat(teamB.teamRoster); // array of players and subs for early game
+        let lateGamePlayers = teamC.teamRoster.concat(teamD.teamRoster); // array of players and subs for the late game
+        let leaguePlayers = earlyGamePlayers.concat(lateGamePlayers); // array of all the players in the league
+        return(leaguePlayers);
     }
 }
 
